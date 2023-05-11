@@ -1,0 +1,101 @@
+<div>
+  <div>
+    <h1>
+      Delivery #<%= @the_delivery.id %> details
+    </h1>
+
+    <div>
+      <div>
+        <a href="/deliveries">
+          Go back
+        </a>
+      </div>
+
+      <div>
+        <a href="/delete_delivery/<%= @the_delivery.id %>">
+          Delete delivery
+        </a>
+      </div>
+    </div>
+
+    <dl>
+      <dt>
+        Content
+      </dt>
+      <dd>
+        <%= @the_delivery.content %>
+      </dd>
+
+      <dt>
+        Status
+      </dt>
+      <dd>
+        <%= @the_delivery.status %>
+      </dd>
+
+      <dt>
+        User
+      </dt>
+      <dd>
+        <%= @the_delivery.user_id %>
+      </dd>
+
+      <dt>
+        Created at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_delivery.created_at) %> ago
+      </dd>
+
+      <dt>
+        Updated at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_delivery.updated_at) %> ago
+      </dd>
+    </dl>
+  </div>
+</div>
+
+<hr>
+
+
+<div>
+  <div>
+    <h2>
+      Edit delivery
+    </h2>
+
+    <form action="/modify_delivery/<%= @the_delivery.id %>"  method="post" >
+      <div>
+        <label for="content_box">
+          Content
+        </label>
+
+        <input type="text" id="content_box" name="query_content" value="<%= @the_delivery.content %>">
+      </div>
+
+      <div>
+        <label for="status_box">
+          Status
+        </label>
+
+        <input type="text" id="status_box" name="query_status" value="<%= @the_delivery.status %>">
+      </div>
+
+      <div>
+        <label for="user_id_box">
+          User
+        </label>
+
+        <input type="text" id="user_id_box" name="query_user_id" value="<%= @the_delivery.user_id %>">
+      </div>
+
+      <button>
+        Update delivery
+      </button>
+    </form>
+  </div>
+</div>
+
+<hr>
