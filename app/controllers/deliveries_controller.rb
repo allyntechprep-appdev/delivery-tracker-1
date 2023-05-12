@@ -4,6 +4,10 @@ class DeliveriesController < ApplicationController
 
     @list_of_deliveries = matching_deliveries.order({ :created_at => :desc })
 
+    @waiting_on = @list_of_deliveries.where({ :status => "waiting_on" })
+
+    @received = @list_of_deliveries.where({ :status => "received" })
+
     render({ :template => "deliveries/index.html.erb" })
   end
 
@@ -22,10 +26,12 @@ class DeliveriesController < ApplicationController
     the_delivery.content = params.fetch("query_content")
     the_delivery.status = params.fetch("query_status")
     the_delivery.user_id = params.fetch("query_user_id")
+    the_delivery.arrival = params.fetch("query_arrival")
+    the_delivery.details = params.fetch("query_details")
 
     if the_delivery.valid?
       the_delivery.save
-      redirect_to("/", { :notice => "Delivery created successfully." })
+      redirect_to("/", { :notice => "Added to list" })
     else
       redirect_to("/", { :alert => the_delivery.errors.full_messages.to_sentence })
     end
@@ -38,6 +44,8 @@ class DeliveriesController < ApplicationController
     the_delivery.content = params.fetch("query_content")
     the_delivery.status = params.fetch("query_status")
     the_delivery.user_id = params.fetch("query_user_id")
+    the_delivery.arrival = params.fetch("query_arrival")
+    the_delivery.details = params.fetch("query_details")
 
     if the_delivery.valid?
       the_delivery.save

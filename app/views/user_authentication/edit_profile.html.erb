@@ -1,3 +1,22 @@
+<% if session[:user_id] == nil%>
+  <ul>
+    <li><a href="/user_sign_in">Sign in</a>
+    </li>
+    <li><a href="/user_sign_up">Sign up</a>
+    </li>
+    <li><a href="/">Home</a>
+  </li>
+</ul>
+
+<%else%>
+
+  <ul>
+    <li><a href="/">Your deliveries</a></li>
+    <li><a href="/edit_user_profile">Edit profile</a></li>
+    <li><a href="/user_sign_in">Sign out</a></li>
+  </ul>
+<% end %>
+
 <div >
   <h5>
     Edit User Account

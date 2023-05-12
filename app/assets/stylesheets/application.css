@@ -19,3 +19,7 @@
 .received {
   background-color: lightgreen;
 }
+
+.late {
+  color: red;
+}
