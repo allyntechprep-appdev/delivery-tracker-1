@@ -1,5 +1,23 @@
- <div>
-  <div>
+<% if session[:user_id] == nil%>
+  <ul>
+    <li><a href="/user_sign_in">Sign in</a>
+    </li>
+    <li><a href="/user_sign_up">Sign up</a>
+    </li>
+    <li><a href="/">Home</a>
+  </li>
+</ul>
+
+<%else%>
+
+  <ul>
+    <li><a href="/">Your deliveries</a></li>
+    <li><a href="/edit_user_profile">Edit profile</a></li>
+    <li><a href="/user_sign_in">Sign out</a></li>
+  </ul>
+<% end %>
+
+<div>
     <h1>
       Delivery Tracker
     </h1>
@@ -7,13 +25,11 @@
     <body>
       Know if something gets lost in the mail.
     </body>
-  </div>
 </div>
 
 <hr>
 
 <div>
-  <div>
     <h2>
       Expecting a package?
     </h2>
@@ -40,7 +56,7 @@
           Details
         </label>
 
-        <input type="text" id="user_id_box" name="query_user_id">
+        <input type="text" id="user_id_box" name="query_user_id" value="<%= @current_user.id %>">
       </div>
 
       <button>
@@ -72,8 +88,39 @@
         </div>
 
         <div>
+          <form action="/modify_delivery/<%= task.id %>" method="post">
+            <input for="content" type="hidden" name="query_content" value="<%= delivery.content %>">
+
+            <input for="status_update" type="hidden" name="query_status" value="received">
+
+            <input for="user" type="hidden" name="query_user_id" value="<%= @current_user.id %>">
+
+            <button>Mark as received</button>
         </div>
       </li>
+    <% end %>
+  </ul>
+</div>
+
+<hr>
+
+<div class="received">
+  <h2>Received</h2>
+
+  <ul>
+    <% @list_of_deliveries.where({ status: "received" }).each do |delivery| %>
+       <li>
+        <div>
+          <%= delivery.content %>
+        </div>
+
+        <div>
+          <small>
+            Updated at <%= delivery.updated %>
+            <a href="/delete_delivery/<%= delivery.id %>">Delete</a>
+          </small>
+        </div>
+       </li>
     <% end %>
   </ul>
 </div>
